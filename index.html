@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toko Buku & Komik Online</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: rgb(176, 233, 19);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        nav a {
+            color: rgb(255, 255, 255);
+            margin: 0 1rem;
+            text-decoration: none;
+        }
+
+        section {
+            padding: 2rem;
+            margin: 1rem;
+            background-color: rgb(255, 255, 255);
+            border-radius: 8px;
+        }
+
+        .book-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .book-item {
+            border: 1px solid #ddd;
+            padding: 1rem;
+            width: 200px;
+            text-align: center;
+        }
+
+        .book-item img {
+            width: 100%;
+            height: auto;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 0.5rem;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: rgb(255, 217, 0);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Toko Buku & Komik Online Joe Dan Akbar</h1>
+        <nav>
+            <a href="#home">Beranda</a>
+            <a href="#books">Buku & Komik</a>
+            <a href="#cart">Keranjang</a>
+        </nav>
+    </header>
+
+    <section id="home">
+        <h2>Selamat Datang di Toko Kami!</h2>
+        <p>Temukan koleksi buku dan komik terbaik dengan harga terjangkau.</p>
+    </section>
+
+    <section id="books">
+        <h2>Daftar Buku & Komik</h2>
+        <div class="book-list">
+            <!-- Contoh buku 1 -->
+            <div class="book-item">
+                <img src="https://via.placeholder.com/150" alt="Buku 1">
+                <h3>Judul Buku 1</h3>
+                <p>Harga: Rp 50.000</p>
+                <button onclick="addToCart('Judul Buku 1', 50000)">Tambah ke Keranjang</button>
+            </div>
+            <!-- Contoh buku 2 -->
+            <div class="book-item">
+                <img src="https://via.placeholder.com/150" alt="Komik 1">
+                <h3>Judul Komik 1</h3>
+                <p>Harga: Rp 30.000</p>
+                <button onclick="addToCart('Judul Komik 1', 30000)">Tambah ke Keranjang</button>
+            </div>
+            <!-- Tambahkan lebih banyak item di sini -->
+        </div>
+    </section>
+
+    <section id="cart">
+        <h2>Keranjang Belanja</h2>
+        <ul id="cart-items"></ul>
+        <p>Total: Rp <span id="total">0</span></p>
+        <button onclick="checkout()">Checkout</button>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 Toko Buku & Komik. Semua hak dilindungi.</p>
+    </footer>
+
+    <script>
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let total = 0;
+
+        function addToCart(title, price) {
+            cart.push({ title, price });
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCart();
+        }
+
+        function updateCart() {
+            const cartItems = document.getElementById('cart-items');
+            cartItems.innerHTML = '';
+            total = 0;
+            cart.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = `${item.title} - Rp ${item.price}`;
+                cartItems.appendChild(li);
+                total += item.price;
+            });
+            document.getElementById('total').textContent = total;
+        }
+
+        function checkout() {
+            alert(`Total pembelian: Rp ${total}. Terima kasih! (Ini simulasi, integrasikan pembayaran nyata.)`);
+            cart = [];
+            localStorage.removeItem('cart');
+            updateCart();
+        }
+
+        // Load cart on page load
+        updateCart();
+    </script>
+</body>
+</html>
